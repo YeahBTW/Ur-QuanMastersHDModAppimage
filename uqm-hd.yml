@@ -1,0 +1,26 @@
+;app:uqm-hd
+union:true
+
+ingredients:
+  dist: wheezy
+  sources:
+    - deb http://archive.debian.org/debian/ wheezy main non-free contrib
+  script:
+    - wget -c "http://security.ubuntu.com/ubuntu/pool/universe/libm/libmikmod/libmikmod2_3.1.16-1_amd64.deb"
+    - wget -c "https://phoenixnap.dl.sourceforge.net/project/urquanmastershd/Beta%201/debs/uqm-hd-content_0.2-1_all.deb"
+    - wget -c "https://versaweb.dl.sourceforge.net/project/urquanmastershd/Beta%201/debs/uqm-hd-hires2x_0.2-1_all.deb"
+    - wget -c "https://versaweb.dl.sourceforge.net/project/urquanmastershd/Beta%201/debs/uqm-hd-hires4x_0.2-1_all.deb"
+    - wget -c "https://master.dl.sourceforge.net/project/urquanmastershd/Beta%201/debs/uqm-hd-3dovoice_0.2-1_all.deb"
+    - wget -c "https://master.dl.sourceforge.net/project/urquanmastershd/Beta%201/debs/uqm-hd-3domusic_0.2-1_all.deb"
+    - wget -c "https://master.dl.sourceforge.net/project/urquanmastershd/Beta%201/debs/wheezy/uqm-hd_0.2-1.1_amd64.deb"
+    - wget -c "https://file4.gofile.io/download/cdc7abb8-13b3-44b7-9ad8-198bc569b398/logo.png"
+
+script:
+  - cp usr/games/uqm-hd usr/bin/
+  - sed -i -e 's|exec "/usr/lib/games/uqm/uqm-hd"|exec "uqm-hd-game"|g' usr/bin/uqm-hd
+  - cp usr/lib/games/uqm/uqm-hd usr/bin/uqm-hd-game
+  - cp ../logo.png logo.png
+  - sed -i -e 's|/usr/games/||g' uqm-hd.desktop
+  - sed -i -e 's|icon|#icon|g' uqm-hd.desktop
+  - echo Categories=Game\; >> uqm-hd.desktop
+  - echo Icon=logo >> uqm-hd.desktop	
